@@ -1,5 +1,8 @@
 # Claude Creation Guard
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-blue)](https://claude.ai)
+
 A Claude Code skill that prevents duplicate functionality by analyzing existing artifacts before creating new ones.
 
 ## The Problem
