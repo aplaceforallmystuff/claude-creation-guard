@@ -132,10 +132,6 @@ Before creating ANY new skill, agent, command, or CLI tool, MUST invoke the `cre
 6. Only then proceed (or take alternative action)
 ```
 
-## Contributing
-
-Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
 ## License
 
 MIT License - see [LICENSE](LICENSE)
