@@ -32,7 +32,13 @@ When you ask Claude to create a new skill, agent, command, or CLI tool, this ski
 
 ## Installation
 
-### Option 1: Copy to your Claude Code skills directory
+### Option 1: Skills CLI
+
+```bash
+npx skills add aplaceforallmystuff/claude-creation-guard
+```
+
+### Option 2: Copy to your Claude Code skills directory
 
 ```bash
 # Clone the repository
@@ -42,13 +48,13 @@ git clone https://github.com/aplaceforallmystuff/claude-creation-guard.git
 cp -r claude-creation-guard/skills/creation-guard ~/.claude/skills/
 ```
 
-### Option 2: Clone directly to skills directory
+### Option 3: Clone directly to skills directory
 
 ```bash
 git clone https://github.com/aplaceforallmystuff/claude-creation-guard.git ~/.claude/skills/creation-guard
 ```
 
-### Option 3: Manual installation
+### Option 4: Manual installation
 
 1. Create the directory: `mkdir -p ~/.claude/skills/creation-guard`
 2. Download [SKILL.md](skills/creation-guard/SKILL.md) to that directory
@@ -131,6 +137,14 @@ Before creating ANY new skill, agent, command, or CLI tool, MUST invoke the `cre
 5. Get explicit user approval
 6. Only then proceed (or take alternative action)
 ```
+
+## Related Skills
+
+Part of the [aplaceforallmystuff](https://skills.sh/aplaceforallmystuff) skills collection:
+
+- **[ecosystem-health](https://github.com/aplaceforallmystuff/claude-ecosystem-health)** — Detect drift across your entire Claude Code setup
+- **[think-first](https://github.com/aplaceforallmystuff/claude-think-first)** — Mental model application before significant decisions
+- **[rfu-audit](https://github.com/aplaceforallmystuff/claude-rfu-audit)** — 11-gate utility validation before investing effort
 
 ## License
 
