@@ -1,7 +1,7 @@
 ---
 name: creation-guard
-description: Analyze existing skills, agents, commands before creating new ones. Prevents duplicates and suggests iterations.
-use_when: Claude is about to create any new skill, agent, slash command, or CLI tool. MUST be invoked before writing any new artifact definition.
+description: Mandatory pre-creation analysis for new skills, agents, commands, or CLI tools. Searches existing ecosystem for overlap and recommends PROCEED/EXTEND/COMPOSE/ITERATE/BLOCK. Must be invoked BEFORE writing any new artifact definition. Trigger whenever the user says "create a skill", "build an agent", "make a command", "add a CLI tool", or any variation of creating new Claude Code capabilities. Also trigger when the user describes a workflow they want to automate as a new skill or agent, even if they don't use the word "create".
+use_when: User wants to create, build, or add any new skill, agent, slash command, CLI tool, or MCP server. Also when user describes automating a workflow as a new capability.
 ---
 
 # Creation Guard
@@ -32,10 +32,33 @@ Invoke this skill when you detect:
 - "Let's add an agent for..."
 - "Build a CLI tool to..."
 - Any intent to create new automation/tooling
+- "Could this be a project?"
+- "Should we build/make/create..."
+- "What if we had a tool that..."
+- External feedback identifying a gap (e.g., "do you have a solution for X?")
+- Excitement about building something new (warning sign - check ecosystem first)
 
 ---
 
 ## Analysis Process
+
+### Step 0: Check Existing Ecosystem
+
+Before analyzing artifacts, check if this capability already exists elsewhere:
+
+1. **Project folders:** Look in your project/workbench directories for related work
+2. **Dev projects:** Check `~/Dev/` for existing code that might solve this
+3. **Capability inventory:** Check any capability inventory or system documentation you maintain
+
+```bash
+# Quick ecosystem check
+ls ~/Dev/ | grep -i "[keywords]"
+grep -ril "[keywords]" ~/.claude/skills/ ~/.claude/agents/ ~/.claude/commands/ 2>/dev/null | head -10
+```
+
+**If existing capability found, STOP.** Present the existing solution to the user. Don't proceed to artifact analysis unless they confirm the existing solution doesn't meet their needs.
+
+---
 
 ### Step 1: Identify the Proposal
 
@@ -78,7 +101,37 @@ Also search by keywords:
 grep -ril "[keyword]" ~/.claude/skills/ ~/.claude/agents/ ~/.claude/commands/
 ```
 
-### Step 3: Analyze Overlap
+### Step 3: Research Domain Expertise (Optional)
+
+If you maintain a searchable knowledge base, book index, or reference library, query it for domain-relevant expertise:
+
+```bash
+# Example: search your knowledge base for relevant resources
+# Adapt this to your own search tool or reference system
+# my-search-tool "[domain keywords from proposal]" --limit 10
+```
+
+**What to look for:**
+- Existing resources covering the domain (e.g., methodology guides, best practices)
+- Frameworks that should inform the approach
+- Contrarian views that might suggest alternative designs
+
+**How to apply findings:**
+- Incorporate proven methodologies into skill workflow
+- Reference source material in skill documentation
+- Use expert terminology and mental models
+- Avoid reinventing approaches already well-documented
+
+**Document in output:**
+```
+DOMAIN EXPERTISE FOUND:
+- [Source] - [relevant insight]
+- [Framework/Methodology] from [Source] - [how to apply]
+```
+
+If no relevant resources found, note "No domain resources found" and proceed.
+
+### Step 4: Analyze Overlap
 
 For each potentially related artifact, assess:
 
@@ -89,7 +142,7 @@ For each potentially related artifact, assess:
 | Extension potential | Could the proposal extend this instead? |
 | Composition | Could existing artifacts compose to achieve this? |
 
-### Step 4: Generate Recommendation
+### Step 5: Generate Recommendation
 
 Based on analysis, recommend ONE of:
 
@@ -106,9 +159,9 @@ Based on analysis, recommend ONE of:
 ## Output Format
 
 ```
-════════════════════════════════════════════════════════════════
+================================================================
 CREATION GUARD ANALYSIS
-════════════════════════════════════════════════════════════════
+================================================================
 
 PROPOSAL:
   Type: [skill|agent|command|cli-tool]
@@ -127,6 +180,12 @@ RELATED ARTIFACTS FOUND:
    Purpose: [what it does]
    Overlap: [X]% - [explanation]
 
+DOMAIN EXPERTISE:
+
+- [Source] - [relevant insight or methodology]
+- [Source] - [applicable framework or best practice]
+(or: No domain resources found)
+
 RECOMMENDATION: [PROCEED|EXTEND|COMPOSE|ITERATE|BLOCK]
 
 RATIONALE:
@@ -135,9 +194,12 @@ RATIONALE:
 SUGGESTED ACTION:
 [Specific next step based on recommendation]
 
-════════════════════════════════════════════════════════════════
+IF PROCEEDING - INCORPORATE:
+[Key insights from domain expertise to build into the artifact]
+
+================================================================
 Proceed with creation? (y/n/discuss)
-════════════════════════════════════════════════════════════════
+================================================================
 ```
 
 ---
