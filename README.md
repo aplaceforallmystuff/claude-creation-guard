@@ -25,7 +25,7 @@ This skill enforces "look before you leap" — analyzing your existing artifacts
 ```bash
 # In Claude Code:
 /plugin marketplace add aplaceforallmystuff/marketplace
-/plugin install claude-creation-guard@jim-christian
+/plugin install claude-creation-guard@aplaceforallmystuff
 ```
 
 <details>
