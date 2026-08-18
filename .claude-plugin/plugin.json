@@ -1,0 +1,6 @@
+{
+  "name": "claude-creation-guard",
+  "description": "Prevent duplicate artifacts by analyzing existing skills, agents, and commands before creating a new one.",
+  "version": "1.0.0",
+  "author": { "name": "Jim Christian", "email": "hello@jimchristian.net" }
+}
