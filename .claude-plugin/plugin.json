@@ -1,6 +1,21 @@
 {
   "name": "claude-creation-guard",
+  "displayName": "Creation Guard",
   "description": "Prevent duplicate artifacts by analyzing existing skills, agents, and commands before creating a new one.",
   "version": "1.0.0",
-  "author": { "name": "Jim Christian", "email": "hello@jimchristian.net" }
+  "author": {
+    "name": "Jim Christian",
+    "email": "hello@jimchristian.net",
+    "url": "https://jimchristian.net"
+  },
+  "homepage": "https://github.com/aplaceforallmystuff/claude-creation-guard#readme",
+  "repository": "https://github.com/aplaceforallmystuff/claude-creation-guard",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "agents",
+    "governance",
+    "anti-duplication",
+    "meta"
+  ]
 }

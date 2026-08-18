@@ -1,11 +1,15 @@
-# Claude Creation Guard
+# Creation Guard
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-blue)](https://claude.ai)
+*Prevent duplicate Claude Code artifacts by analyzing your existing ecosystem before creating new ones.*
+
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-6C5CE7)
+
+![Creation Guard](docs/images/architecture-diagram.png)
 
 A Claude Code skill that prevents duplicate functionality by analyzing existing artifacts before creating new ones.
 
-## The Problem
+## Why
 
 When working with Claude Code over time, you accumulate skills, agents, commands, and CLI tools. Without guardrails, it's easy to:
 
@@ -16,7 +20,31 @@ When working with Claude Code over time, you accumulate skills, agents, commands
 
 This skill enforces "look before you leap" — analyzing your existing artifacts before creating new ones.
 
-## How It Works
+## Install
+
+```bash
+# In Claude Code:
+/plugin marketplace add aplaceforallmystuff/marketplace
+/plugin install claude-creation-guard@jim-christian
+```
+
+<details>
+<summary>Manual install (without the marketplace)</summary>
+
+```bash
+git clone https://github.com/aplaceforallmystuff/claude-creation-guard.git ~/.claude/skills/creation-guard
+```
+</details>
+
+## Use cases
+
+- Use it when you ask Claude to "create a skill for..." a task.
+- Use it when you want a new slash command or agent added.
+- Use it when you're about to build a CLI tool in `~/bin/`.
+- Use it when you describe automating a workflow as a new capability, even without saying "create".
+- Use it when external feedback identifies a gap ("do you have a solution for X?").
+
+## How it works
 
 When you ask Claude to create a new skill, agent, command, or CLI tool, this skill:
 
@@ -30,36 +58,13 @@ When you ask Claude to create a new skill, agent, command, or CLI tool, this ski
    - **BLOCK** — Would create problematic duplication
 4. **Waits** for explicit user approval before creating anything
 
-## Installation
-
-### Option 1: Skills CLI
-
-```bash
-npx skills add aplaceforallmystuff/claude-creation-guard
-```
-
-### Option 2: Copy to your Claude Code skills directory
-
-```bash
-# Clone the repository
-git clone https://github.com/aplaceforallmystuff/claude-creation-guard.git
-
-# Copy to your Claude Code skills directory
-cp -r claude-creation-guard/skills/creation-guard ~/.claude/skills/
-```
-
-### Option 3: Clone directly to skills directory
-
-```bash
-git clone https://github.com/aplaceforallmystuff/claude-creation-guard.git ~/.claude/skills/creation-guard
-```
-
-### Option 4: Manual installation
-
-1. Create the directory: `mkdir -p ~/.claude/skills/creation-guard`
-2. Download [SKILL.md](skills/creation-guard/SKILL.md) to that directory
-
-## Usage
+| Recommendation | When Used | Action |
+|----------------|-----------|--------|
+| **PROCEED** | <20% overlap, genuinely new | Create the artifact |
+| **EXTEND** | 50%+ overlap with one artifact | Modify existing instead |
+| **COMPOSE** | Multiple artifacts cover 80%+ | Create thin wrapper or document workflow |
+| **ITERATE** | 20-50% overlap | Refine proposal to differentiate |
+| **BLOCK** | Would duplicate existing | Do not create |
 
 The skill activates when Claude detects intent to create new artifacts:
 
@@ -68,7 +73,7 @@ The skill activates when Claude detects intent to create new artifacts:
 - "Let's add an agent for..."
 - "Build a CLI tool to..."
 
-### Example Output
+## Example
 
 ```
 ════════════════════════════════════════════════════════════════
@@ -104,19 +109,11 @@ Proceed with creation? (y/n/discuss)
 ════════════════════════════════════════════════════════════════
 ```
 
-## Recommendation Types
+(Illustrative output.)
 
-| Recommendation | When Used | Action |
-|----------------|-----------|--------|
-| **PROCEED** | <20% overlap, genuinely new | Create the artifact |
-| **EXTEND** | 50%+ overlap with one artifact | Modify existing instead |
-| **COMPOSE** | Multiple artifacts cover 80%+ | Create thin wrapper or document workflow |
-| **ITERATE** | 20-50% overlap | Refine proposal to differentiate |
-| **BLOCK** | Would duplicate existing | Do not create |
+## Configuration
 
-## Integration with CLAUDE.md
-
-For automatic enforcement, add this to your `CLAUDE.md`:
+No credentials or external tools are required. For automatic enforcement, add this to your `CLAUDE.md`:
 
 ```markdown
 ## Artifact Creation Guard (MANDATORY)
@@ -148,7 +145,7 @@ Part of the [aplaceforallmystuff](https://skills.sh/aplaceforallmystuff) skills 
 
 ## License
 
-MIT License - see [LICENSE](LICENSE)
+MIT — see [LICENSE](LICENSE).
 
 ---
 
